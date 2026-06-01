@@ -1,0 +1,178 @@
+{
+  "scraped_at": "2026-05-29T12:32:42.459541",
+  "site_url": "https://vncodepro.com",
+  "contact_email": "contact@vncodepro.com",
+  "social": {
+    "instagram": "@vncodepro.official",
+    "instagram_url": "https://www.instagram.com/vncodepro.official",
+    "youtube": "@VNCodePro",
+    "youtube_url": "https://www.youtube.com/@VNCodePro"
+  },
+  "verified_urls": [
+    "https://vncodepro.com",
+    "https://vncodepro.com/templates",
+    "https://vncodepro.com/how-it-works",
+    "https://vncodepro.com/about",
+    "https://vncodepro.com/contact-us",
+    "https://vncodepro.com/blogs",
+    "https://vncodepro.com/refund-policy",
+    "https://vncodepro.com/terms-and-conditions",
+    "https://vncodepro.com/digital-delivery-policy",
+    "https://vncodepro.com/privacy-policy",
+    "https://vncodepro.com/#faq",
+    "https://vncodepro.com/#trending",
+    "https://vncodepro.com/blogs/our-story-why-we-built-vn-code-pro",
+    "https://vncodepro.com/blogs/best-travel-vn-templates-for-instagram-reels-in-2026"
+  ],
+  "pages": {
+    "homepage": {
+      "process_steps": [
+        {
+          "step": 1,
+          "title": "Get QR Code",
+          "description": "After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery."
+        },
+        {
+          "step": 2,
+          "title": "Open VN Video Editor",
+          "description": "Open the VN Video Editor app on your mobile device."
+        },
+        {
+          "step": 3,
+          "title": "Open Your Projects",
+          "description": "Tap the X icon in the top-left corner to go to the Your Projects screen."
+        },
+        {
+          "step": 4,
+          "title": "Scan QR Code",
+          "description": "Tap the scan icon (QR code icon or plus sign) in the VN app, then select the QR code IMAGE from your phone gallery. The template loads instantly!"
+        },
+        {
+          "step": 5,
+          "title": "Replace Clips",
+          "description": "Tap Use and replace the demo clips with your own photos or videos."
+        },
+        {
+          "step": 6,
+          "title": "Export Video",
+          "description": "Tap Export and your reel is ready to post on Instagram."
+        }
+      ],
+      "testimonials": [
+        {
+          "name": "Kaushal Roy",
+          "role": "Influencer",
+          "quote": "I usually spend a lot of time tweaking small things in my reels, but these templates already feel polished. I just add my clips and post. Simple, clean, and effective."
+        },
+        {
+          "name": "Deep Goti",
+          "role": "College Student",
+          "quote": "I don't know much about editing, but I still made a great reel for my college fest without any struggle."
+        },
+        {
+          "name": "Priya Sharma",
+          "role": "Fashion Blogger",
+          "quote": "For fashion content, presentation matters a lot. These templates help me keep my feed consistent and trendy without sitting for hours on editing. Definitely worth it."
+        }
+      ],
+      "current_offer": "BUY 2 GET 1 FREE — use code: B2G1",
+      "tagline": "Get Free & Premium VN Templates in One Place"
+    },
+    "templates": {
+      "categories": [
+        "Wedding Templates",
+        "Travel Templates",
+        "Festival Templates",
+        "Business Templates",
+        "Couple Templates",
+        "Birthday Templates",
+        "Friendship Templates",
+        "Gym Templates",
+        "Girly Templates",
+        "Personal Templates",
+        "Cinematic Templates",
+        "Trending Templates"
+      ],
+      "meta_description": "Browse our collection of professional VN video templates for Instagram Reels. Find templates for weddings, travel, festivals, business, and more. Instant QR code delivery.",
+      "keywords": [
+        "VN templates",
+        "video templates",
+        "reel templates",
+        "Instagram reels",
+        "wedding templates",
+        "travel templates"
+      ]
+    },
+    "how_it_works": {
+      "url": "https://vncodepro.com/how-it-works",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Get QR Code",
+          "description": "After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery."
+        },
+        {
+          "step": 2,
+          "title": "Open VN Video Editor",
+          "description": "Open the VN Video Editor app on your mobile device."
+        },
+        {
+          "step": 3,
+          "title": "Open Your Projects",
+          "description": "Tap the X icon in the top-left corner to go to the Your Projects screen."
+        },
+        {
+          "step": 4,
+          "title": "Scan QR Code",
+          "description": "Tap the scan icon (QR code icon or plus sign) in the VN app, then select the QR code IMAGE from your phone gallery. The template loads instantly!"
+        },
+        {
+          "step": 5,
+          "title": "Replace Clips",
+          "description": "Tap Use and replace the demo clips with your own photos or videos."
+        },
+        {
+          "step": 6,
+          "title": "Export Video",
+          "description": "Tap Export and your reel is ready to post on Instagram."
+        }
+      ],
+      "time_to_create": "4-5 minutes",
+      "note": "URL is /how-it-works"
+    },
+    "about": {
+      "description": "VN CODE PRO is a digital platform created to simplify video creation for reels, weddings, festivals, travel content, and business promotions. Provides professionally designed VN templates, instant QR-based access, secure payments via PhonePe, user-friendly experience for all levels, and dedicated support.",
+      "mission": "Help creators save time and produce high-quality videos effortlessly.",
+      "payment_processor": "PhonePe"
+    },
+    "blogs": {
+      "published_titles": [
+        "Our Story: Why We Built VN Code Pro",
+        "Best Travel VN Templates for Instagram Reels in 2026"
+      ],
+      "blog_urls": [
+        "https://vncodepro.com/blogs/our-story-why-we-built-vn-code-pro",
+        "https://vncodepro.com/blogs/best-travel-vn-templates-for-instagram-reels-in-2026"
+      ],
+      "blog_description": "Tips, tutorials, and inspiration to help you create scroll-stopping Reels."
+    }
+  },
+  "pricing": {
+    "model": "one-time purchase per template, reusable unlimited times",
+    "methods": [
+      "UPI",
+      "debit/credit cards",
+      "net banking"
+    ],
+    "processor": "PhonePe and secure partners",
+    "current_offer": "BUY 2 GET 1 FREE — use code B2G1",
+    "pricing_page": "https://vncodepro.com/templates",
+    "note": "Individual prices shown on product pages. Do NOT state a specific range in blogs."
+  },
+  "policies": {
+    "refund": "https://vncodepro.com/refund-policy",
+    "privacy": "https://vncodepro.com/privacy-policy",
+    "terms": "https://vncodepro.com/terms-and-conditions",
+    "digital_delivery": "https://vncodepro.com/digital-delivery-policy"
+  }
+}

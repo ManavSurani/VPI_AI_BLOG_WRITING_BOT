@@ -1,0 +1,168 @@
+{
+  "verified_at": "2026-05-29T12:32:44.525058",
+  "verified_from": "Live scrape of vncodepro.com — May 29, 2026",
+  "platform": {
+    "name": "VN Code Pro",
+    "full_name": "VN CODE PRO",
+    "url": "https://vncodepro.com",
+    "tagline": "Get Free & Premium VN Templates in One Place",
+    "description": "VN CODE PRO helps you create professional reels in just a few minutes. Choose a ready-made VN template, scan the QR code, add your clips, and you're ready to post — no editing skills needed.",
+    "mission": "Help creators save valuable time and produce high-quality videos effortlessly, turning complex editing into a simple, enjoyable process.",
+    "contact_email": "contact@vncodepro.com",
+    "instagram": "https://www.instagram.com/vncodepro.official",
+    "instagram_handle": "@vncodepro.official",
+    "youtube": "https://www.youtube.com/@VNCodePro",
+    "payment_processor": "PhonePe and other secure partners",
+    "payment_methods": [
+      "UPI",
+      "debit/credit cards",
+      "net banking"
+    ],
+    "current_offer": "BUY 2 GET 1 FREE on all orders — use code: B2G1",
+    "copyright_year": "2026"
+  },
+  "confirmed_urls": {
+    "home": "https://vncodepro.com",
+    "templates": "https://vncodepro.com/templates",
+    "how_it_works": "https://vncodepro.com/how-it-works",
+    "about": "https://vncodepro.com/about",
+    "contact": "https://vncodepro.com/contact-us",
+    "blogs": "https://vncodepro.com/blogs",
+    "refund_policy": "https://vncodepro.com/refund-policy",
+    "privacy_policy": "https://vncodepro.com/privacy-policy",
+    "terms": "https://vncodepro.com/terms-and-conditions",
+    "digital_delivery": "https://vncodepro.com/digital-delivery-policy",
+    "faq_anchor": "https://vncodepro.com/#faq",
+    "trending_anchor": "https://vncodepro.com/#trending"
+  },
+  "qr_process": {
+    "page_url": "https://vncodepro.com/how-it-works",
+    "time_to_create": "4-5 minutes",
+    "confirmed_steps": [
+      {
+        "step": 1,
+        "title": "Get QR Code",
+        "description": "After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery."
+      },
+      {
+        "step": 2,
+        "title": "Open VN Editor",
+        "description": "Open the free VN Editor app (by Ubiquiti Labs, LLC) on your smartphone."
+      },
+      {
+        "step": 3,
+        "title": "Tap Scan Icon",
+        "description": "Look for the scan icon (QR code icon or plus sign) in the app."
+      },
+      {
+        "step": 4,
+        "title": "Scan QR Code",
+        "description": "Tap the scan icon, then select the QR code IMAGE from your phone gallery. The template loads instantly!"
+      },
+      {
+        "step": 5,
+        "title": "Replace Clips",
+        "description": "Add your own video clips and photos into the designated sections."
+      },
+      {
+        "step": 6,
+        "title": "Export Video",
+        "description": "Tap Export and your reel is ready to post on Instagram."
+      }
+    ],
+    "critical_correction": "WRONG (never write this): 'Tap Download button to get template file.' CORRECT (always write this): After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery. Open the free VN Editor app (by Ubiquiti Labs, LLC). Tap the scan icon (QR code icon), then select the QR code IMAGE from your phone gallery."
+  },
+  "real_testimonials": [
+    {
+      "name": "Kaushal Roy",
+      "role": "Influencer",
+      "quote": "I usually spend a lot of time tweaking small things in my reels, but these templates already feel polished. I just add my clips and post. Simple, clean, and effective."
+    },
+    {
+      "name": "Deep Goti",
+      "role": "College Student",
+      "quote": "I don't know much about editing, but I still made a great reel for my college fest without any struggle."
+    },
+    {
+      "name": "Priya Sharma",
+      "role": "Fashion Blogger",
+      "quote": "For fashion content, presentation matters a lot. These templates help me keep my feed consistent and trendy without sitting for hours on editing. Definitely worth it."
+    }
+  ],
+  "template_categories": [
+    "Wedding Templates",
+    "Travel Templates",
+    "Festival Templates",
+    "Business Templates",
+    "Couple Templates",
+    "Birthday Templates",
+    "Friendship Templates",
+    "Gym Templates",
+    "Girly Templates",
+    "Personal Templates",
+    "Cinematic Templates",
+    "Trending Templates"
+  ],
+  "confirmed_features": [
+    "Professionally designed VN templates crafted by experts, updated regularly for current trends",
+    "Instant QR-based access — unique template delivered immediately after purchase",
+    "Secure payments processed via PhonePe and trusted partners",
+    "User-friendly for beginners to seasoned creators",
+    "Dedicated support at contact@vncodepro.com",
+    "One-time purchase — reusable for unlimited videos",
+    "No prior video editing experience required",
+    "Creates reels in 4-5 minutes using phone only",
+    "Works for Instagram Reels, weddings, festivals, travel, business promotions",
+    "Current offer: BUY 2 GET 1 FREE using code B2G1"
+  ],
+  "safe_claims": [
+    "VN Code Pro provides premium VN Editor templates delivered via QR code",
+    "After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery.",
+    "To use: open VN app → look for scan icon → tap scan icon → select QR code image from gallery → tap Use → replace clips → Export",
+    "Takes 4-5 minutes to create a reel from start to finish",
+    "Payment accepted via UPI, debit/credit cards, and net banking",
+    "Payments processed securely by PhonePe and trusted partners",
+    "Templates are one-time purchase and reusable unlimited times",
+    "No prior video editing experience required",
+    "Designed for Instagram Reels and short-form video",
+    "VN Code Pro is based in India targeting Indian Instagram creators",
+    "Contact for support: contact@vncodepro.com",
+    "Current offer: BUY 2 GET 1 FREE on all orders — use code B2G1",
+    "Instagram: @vncodepro.official | YouTube: @VNCodePro",
+    "Refund and replacement policy: vncodepro.com/refund-policy",
+    "Digital delivery policy: vncodepro.com/digital-delivery-policy",
+    "Template categories: Wedding, Travel, Festival, Business, Couple, Birthday, Friendship, Gym, Girly, Personal, Cinematic, Trending",
+    "Real testimonials from: Kaushal Roy (Influencer), Deep Goti (College Student), Priya Sharma (Fashion Blogger)",
+    "VN Editor app is free on iOS and Android, developed by Ubiquiti Labs, LLC",
+    "VN Code Pro blog covers: VN templates, Instagram reel editing tips, VN QR code tutorials, cinematic video ideas, creator guides"
+  ],
+  "unsafe_claims": [
+    "Any engagement improvement percentage without a cited external source",
+    "Any claim of '10,000+ users' or creator count — unverified",
+    "Any specific price like '₹99-599' without scraping the actual product page",
+    "Testimonials with invented names (Priya M., Raj K., Neha D.) — use only the 3 real ones",
+    "Any URL not in confirmed_urls — e.g. /templates/cinematic-fade-transitions does NOT exist",
+    "Any guaranteed Google ranking or traffic projection",
+    "Any hours/month saved statistic without a source",
+    "Saying 'download a template file' — WRONG, it is a QR code image scanned from the gallery",
+    "Fabricated stats: '5-10x more engagement', '2000+ views', '85% affordability'",
+    "Saying VN app is 'by VN Inc' — it is by Ubiquiti Labs, LLC",
+    "Saying payment is by Razorpay or Stripe — it is PhonePe",
+    "A /pricing page — it does not exist, pricing is on individual template pages",
+    "Duplicate HTML tags like <li><li> — always single tags",
+    "The phrase 'millions of creators' without a source",
+    "Any revenue projections or SEO ranking guarantees"
+  ],
+  "corrections": {
+    "qr_import_method": "WRONG: 'Download template file after payment' | CORRECT: Save QR code image to your phone gallery → Open VN app → Tap Scan Icon → Select QR code image from phone gallery → Use → replace clips → Export",
+    "testimonial_names": "Kaushal Roy (Influencer), Deep Goti (College Student), Priya Sharma (Fashion Blogger) are REAL people shown on homepage. NOT fabricated.",
+    "payment_processor": "PhonePe (confirmed from about page). Do not say Razorpay, Stripe, or leave unspecified.",
+    "how_it_works_url": "URL is vncodepro.com/how-it-works — CORRECT. NOT how-it-use. NOT how-to-use.",
+    "vn_editor_developer": "VN Editor is developed by Ubiquiti Labs, LLC. Never say 'VN Inc' or leave developer unnamed.",
+    "html_duplicate_li": "Never write <li><li> — always single <li> tag. Found in previous blog before Friendship Templates.",
+    "process_steps_count": "How-it-works page shows 6 steps. Steps: Get QR Code → Open VN Editor → Tap Scan Icon → Scan QR Code → Replace Clips → Export"
+  },
+  "live_updates": [
+    "In this guide, we'll explore the best travel VN templates creators are using for Instagram Reels in 2026. Why Travel Reels Perform So Well. Travel videos"
+  ]
+}
