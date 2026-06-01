@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+google-genai
+groq
+tavily-python
+supabase
+requests
+beautifulsoup4

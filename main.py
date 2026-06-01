@@ -754,39 +754,6 @@ DRAFT TO FIX:
     return fixed_content if fixed_content and len(fixed_content) > 500 else content
 
 
-# ─── STEP 6: Save Text File ──────────────────────────────────────
-def save_text_file(topic, content, meta, word_count, verified_facts):
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-    filename  = f"blog_{meta.get('slug', 'blog')}_{timestamp}.html"
-
-    text = f"""<!--
-TITLE:       {topic['title']}
-KEYWORD:     {topic['keyword']}
-CATEGORY:    {topic.get('category', '')}
-WORDS:       {word_count}
-SLUG:        {meta.get('slug', '')}
-TAGS:        {', '.join(meta.get('tags', []))}
-OFFER:       {verified_facts['platform']['current_offer']}
-
-META TITLE ({len(meta.get('meta_title',''))} chars):
-{meta.get('meta_title', '')}
-
-META DESC ({len(meta.get('meta_description',''))} chars):
-{meta.get('meta_description', '')}
-
-EXCERPT:
-{meta.get('excerpt', '')}
-
-IMAGE PROMPT:
-{meta.get('image_prompt', '')}
--->
-
-{content}"""
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(text)
-    print(f"  Saved: {filename}")
-    return filename
-
 
 # ─── STEP 7: Save to Supabase ────────────────────────────────────
 def save_draft(topic, content, meta):
@@ -800,7 +767,8 @@ def save_draft(topic, content, meta):
         "focus_keyword":    topic["keyword"],
         "tags":             meta.get("tags", []),
         "image_prompt":     meta.get("image_prompt", ""),
-        "status":           "draft"
+        "status":           "draft",
+        "pushed_to_api":    False
     }
     result = supabase.table("blog_posts").insert(post).execute()
     if result and result.data:
@@ -811,7 +779,7 @@ def save_draft(topic, content, meta):
 
 
 # ─── STEP 8: Push to Website API ─────────────────────────────────
-def push_to_api(topic, content, meta, word_count, verified_facts):
+def push_to_api(topic, content, meta, word_count, verified_facts, supabase_id=None):
     try:
         BASE_URL = "http://192.168.1.15:8000"
 
@@ -893,6 +861,9 @@ def push_to_api(topic, content, meta, word_count, verified_facts):
                 "N/A"
             )
             print(f"  [SUCCESS] Blog pushed to website — ID: {post_id}")
+            if supabase_id:
+                supabase.table("blog_posts").update({"pushed_to_api": True}).eq("id", supabase_id).execute()
+            return True
         elif r.status_code == 401:
             print("  [AUTH ERROR] Token rejected — check email and password")
         elif r.status_code == 403:
@@ -904,7 +875,40 @@ def push_to_api(topic, content, meta, word_count, verified_facts):
         print("  [WARNING] Website API offline — skipped pushing")
     except Exception as e:
         print(f"  [WARNING] Push failed: {e}")
+    
+    return False
 
+
+def retry_failed_pushes():
+    try:
+        failed = supabase.table("blog_posts").select("*").eq("pushed_to_api", False).execute()
+        if not failed.data:
+            return
+
+        print(f"Step 0.0: Found {len(failed.data)} blog(s) that failed to push. Retrying...")
+        for blog in failed.data:
+            if not isinstance(blog, dict):
+                continue
+            topic = {
+                "title": blog.get("title", ""),
+                "keyword": blog.get("focus_keyword", "")
+            }
+            meta = {
+                "slug": blog.get("slug", ""),
+                "excerpt": blog.get("excerpt", ""),
+                "meta_title": blog.get("meta_title", ""),
+                "meta_description": blog.get("meta_description", "")
+            }
+            content = str(blog.get("content", ""))
+            word_count = len(content.split())
+
+            success = push_to_api(topic, content, meta, word_count, None, supabase_id=blog.get("id"))
+            if success:
+                print(f"  ✅ Retry success for: {str(topic['title'])[:40]}...")
+            else:
+                print(f"  ⚠️ Still offline for: {str(topic['title'])[:40]}...")
+    except Exception as e:
+        pass
 
 # ─── MAIN ────────────────────────────────────────────────────────
 def run():
@@ -915,6 +919,8 @@ def run():
     print("="*52 + "\n")
 
     try:
+        retry_failed_pushes()
+
         print("Step 0.1: Loading site knowledge...")
         site_knowledge = site_crawler.crawl_site()
 
@@ -971,7 +977,6 @@ def run():
             print("  [ABORT] Blog did not achieve a perfect score. Discarding draft.")
         else:
             meta = generate_metadata(topic, content)
-            filename = save_text_file(topic, content, meta, word_count, verified_facts)
             post_id  = save_draft(topic, content, meta)
 
             print("\n" + "="*52)
@@ -980,11 +985,9 @@ def run():
             print(f"  Title:    {topic['title'][:55]}")
             print(f"  Keyword:  {topic['keyword']}")
             print(f"  Words:    {word_count}")
-            print(f"  File:     {filename}")
             if post_id:
                 print(f"  DB ID:    {post_id}")
-            push_to_api(topic, content, meta, word_count, verified_facts)
-            print(f"\n  Open {filename} to read your blog!")
+            push_to_api(topic, content, meta, word_count, verified_facts, supabase_id=post_id)
 
         print(f"\n  API Usage:")
         print(f"    Gemini calls:    {API_USAGE['gemini_calls']} ({API_USAGE['gemini_tokens']} tokens)")
