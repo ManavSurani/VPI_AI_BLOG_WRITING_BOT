@@ -1,4 +1,4 @@
-﻿from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 from supabase import create_client
 
@@ -22,7 +22,9 @@ test_post = {
 
 result = supabase.table("blog_posts").insert(test_post).execute()
 print("Saved to Supabase!")
-print("Post ID:", result.data[0]["id"])
-print("Title:", result.data[0]["title"])
-print("Status:", result.data[0]["status"])
+row = result.data[0] if result.data else {}
+if isinstance(row, dict):
+    print("Post ID:", row.get("id"))
+    print("Title:", row.get("title"))
+    print("Status:", row.get("status"))
 print("\nSupabase working! Phase 2 complete.")
