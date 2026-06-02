@@ -45,6 +45,18 @@ _gemini_tpm_retries: int = 0
 _gemini_503_retries: int = 0
 
 
+def log_error(location: str, details: str):
+    try:
+        now = datetime.now().strftime("%Y-%m-%d %I:%M:%S %p")
+        with open("bot_errors.txt", "a", encoding="utf-8") as f:
+            f.write(f"[{now}]\n")
+            f.write(f"Location: {location}\n")
+            f.write(f"Error:    {details}\n")
+            f.write("-" * 50 + "\n")
+    except Exception as e:
+        print(f"  [!] Failed to write to error log: {e}")
+
+
 # ─── GEMINI HELPER (blog writing, fact-check, metadata) ──────────
 def gemini_call(prompt, json_mode=False, max_retries=3):
     global genai_client, API_USAGE, _gemini_tpm_retries, _gemini_503_retries
@@ -120,12 +132,14 @@ def gemini_call(prompt, json_mode=False, max_retries=3):
                 else:
                     # Google having major outage — stop and inform user
                     _gemini_503_retries = 0
-                    raise RuntimeError(
+                    msg = (
                         "\n  Google Gemini servers are unavailable (503) after 3 attempts.\n"
                         "  This is Google's problem, not yours.\n"
                         "  Check: https://status.cloud.google.com\n"
                         "  Try again in 10-15 minutes."
                     )
+                    log_error("Gemini API (503)", msg)
+                    raise RuntimeError(msg)
 
             # ── ERROR TYPE 3: TPM Spike (429 per minute) ─────────────────
             # Too many tokens sent per minute — NOT daily quota
@@ -162,11 +176,13 @@ def gemini_call(prompt, json_mode=False, max_retries=3):
                 else:
                     # Cannot resolve TPM — stop
                     _gemini_tpm_retries = 0
-                    raise RuntimeError(
+                    msg = (
                         "\n  Gemini TPM limit could not be resolved after 3 attempts.\n"
                         "  Try again in a few minutes.\n"
                         "  Tip: Add sleep between heavy Gemini calls."
                     )
+                    log_error("Gemini API (TPM)", msg)
+                    raise RuntimeError(msg)
 
             # ── ERROR TYPE 4: Daily Quota Exhausted (429 daily) ──────────
             # Real daily limit used up — key cannot be used until tomorrow
@@ -191,6 +207,7 @@ def gemini_call(prompt, json_mode=False, max_retries=3):
                     time.sleep(delay)
                     delay *= 2  # exponential backoff: 5s, 10s, 20s
                 else:
+                    log_error("Gemini API", f"Failed after {max_retries} retries. Last error: {err}")
                     raise e
 
     return ""
@@ -251,6 +268,7 @@ def groq_call(prompt, json_mode=False, max_retries=3):
                     return r.choices[0].message.content
                 except Exception as e2:
                     if attempt >= max_retries - 1:
+                        log_error("Groq API", f"Failed after {max_retries} attempts. Last error: {str(e2)}")
                         raise e2
     return ""
 
@@ -930,6 +948,7 @@ def run():
         trends = research_trends()
         if not trends:
             print("No trends found. Check your Tavily API key.")
+            log_error("Trend Research", "No trends found. Tavily API key might be exhausted or invalid.")
             return
 
         topic = decide_topic(trends, site_knowledge, verified_facts)
@@ -975,6 +994,7 @@ def run():
         
         if not is_perfect:
             print("  [ABORT] Blog did not achieve a perfect score. Discarding draft.")
+            log_error("Quality Check", "Blog failed to achieve 100% after 3 auto-fix attempts. Draft discarded.")
         else:
             meta = generate_metadata(topic, content)
             post_id  = save_draft(topic, content, meta)
@@ -998,6 +1018,7 @@ def run():
     except Exception as e:
         print(f"\nError: {str(e)[:150]}")
         print("Check your API keys and try again.")
+        log_error("Main Run Loop", f"Unexpected crash: {str(e)}")
 
 
 if __name__ == "__main__":
