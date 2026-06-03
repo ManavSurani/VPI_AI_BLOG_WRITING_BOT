@@ -1,0 +1,4 @@
+[2026-06-03 03:55:16 PM]
+Location: Quality Check
+Error:    Blog failed to achieve 100% after 3 auto-fix attempts. Draft discarded.
+--------------------------------------------------
