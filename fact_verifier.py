@@ -4,7 +4,7 @@ Verified from live website scrape. Cached 24 hours.
 Zero fabricated data.
 """
 
-import json, os, re
+import json, os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from tavily import TavilyClient
@@ -280,12 +280,16 @@ def verify_facts(tavily_api_key=None):
 
     # Live search for any new updates (1 search only to save quota)
     print("  Checking for latest VN Code Pro updates...")
-    res = search_safe(tavily, "vncodepro.com new templates offer 2026", max_results=2)
     live_updates = []
-    for r in res.get("results", []):
-        content = r.get("content", "")
-        if "vncodepro" in r.get("url", "").lower():
-            live_updates.append(content[:300])
+    for query in [
+        "vncodepro.com templates offer 2026",
+        "trending VN editor templates India Instagram 2026"
+    ]:
+        res = search_safe(tavily, query, max_results=2)
+        for r in res.get("results", []):
+            content = r.get("content", "")
+            if content:
+                live_updates.append(content[:300])
     facts["live_updates"] = live_updates or ["No new updates found — using confirmed data"]
 
     # Summary

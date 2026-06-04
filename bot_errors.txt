@@ -2,3 +2,21 @@
 Location: Quality Check
 Error:    Blog failed to achieve 100% after 3 auto-fix attempts. Draft discarded.
 --------------------------------------------------
+[2026-06-04 12:07:28 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: 
+  All GROQ_API_KEY keys are invalid or exhausted.
+  Add new keys to .env:
+  GROQ_API_KEY_1=new_key_here
+--------------------------------------------------
+[2026-06-04 12:08:03 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: 
+  All GROQ_API_KEY keys are invalid or exhausted.
+  Add new keys to .env:
+  GROQ_API_KEY_1=new_key_here
+--------------------------------------------------
+[2026-06-04 12:16:54 PM]
+Location: Quality Check
+Error:    Blog failed to achieve 100% after 3 auto-fix attempts. Draft discarded.
+--------------------------------------------------

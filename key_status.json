@@ -6,5 +6,8 @@
   "GEMINI_API_KEY_1": {
     "exhausted_at": "2026-06-01T15:18:05.249342",
     "key_index": 1
-  }
+  },
+  "GROQ_API_KEY_bad_keys": [
+    "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"
+  ]
 }

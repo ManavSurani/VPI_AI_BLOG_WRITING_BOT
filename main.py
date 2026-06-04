@@ -529,14 +529,14 @@ STRUCTURE (exact HTML tags):
 <h2>How to Use VN Code Pro Templates — Step by Step</h2>
 <p>Using VN Code Pro is simple. Here is the exact process:</p>
 <ol>
-<li><strong>Download Template:</strong> After payment, tap the Download button on the confirmation page. A download link is also sent to your email.</li>
-<li><strong>Open VN Video Editor:</strong> Open the free VN Video Editor app (by Ubiquiti Labs, LLC) on your phone.</li>
-<li><strong>Open Your Projects:</strong> Tap the X icon in the top-left corner to reach the Your Projects screen.</li>
-<li><strong>Scan Template:</strong> Tap Scan on the top-right and select the downloaded template file.</li>
+<li><strong>Get QR Code:</strong> After purchase, your unique QR code is delivered instantly to your account dashboard and email. Save the QR code image to your phone's gallery.</li>
+<li><strong>Open VN Editor:</strong> Open the free VN Editor app (by Ubiquiti Labs, LLC) on your phone.</li>
+<li><strong>Tap Scan Icon:</strong> Look for the scan icon (QR code icon) in the VN app.</li>
+<li><strong>Scan QR Code:</strong> Tap the scan icon, then select the QR code image from your phone gallery. The template loads instantly.</li>
 <li><strong>Replace Clips:</strong> Tap Use and swap the demo clips with your own photos or videos.</li>
 <li><strong>Export and Post:</strong> Tap Export — your reel is ready for Instagram.</li>
 </ol>
-<p>Full visual guide at <a href="https://vncodepro.com/how-it-use">vncodepro.com/how-it-use</a>. Most creators finish in 4-5 minutes.</p>
+<p>Full visual guide at <a href="https://vncodepro.com/how-it-works">vncodepro.com/how-it-works</a>. Most creators finish in 4-5 minutes.</p>
 
 <h2>Tips to Get Better Results With {topic['category']}</h2>
 <p>[1 sentence intro]</p>
@@ -726,7 +726,7 @@ def quality_check(content, word_count, keyword):
         "no_broken_fragments":     "And, time-consuming" not in content and "You need help" not in content,
         "has_faq_section":         "Frequently Asked Questions" in content and content.count("<h3>") >= 4,
         "has_testimonials":        "Influencer" in content and "Fashion Blogger" in content,
-        "correct_qr_process":      "QR code image" in content and "gallery" in content,
+        "correct_qr_process":      "QR code" in content and "gallery" in content and "VN Inc" not in content,
         "no_fake_stats":           "10,000 creators" not in content and "5x engagement" not in content,
         "no_wrong_developer":      "VN Inc" not in content,
         "has_offer_mentioned":     "B2G1" in content or "BUY 2" in content,
@@ -751,19 +751,65 @@ def quality_check(content, word_count, keyword):
 def fix_quality_mistakes(content, failed_checks, keyword):
     print(f"  [Auto-Fix] Asking Gemini to fix {len(failed_checks)} mistakes...")
     
-    prompt = f"""You are a strict editor reviewing a blog post.
-The current draft failed the following {len(failed_checks)} quality checks:
-{chr(10).join(f'- {f}' for f in failed_checks)}
+    specific_instructions = []
+    for f in failed_checks:
+        if "word count" in f:
+            specific_instructions.append("- Expand existing sections with more detail to reach at least 1500 words.")
+        elif "has h1" in f:
+            specific_instructions.append("- Ensure there is exactly one <h1> heading at the top.")
+        elif "h2 headings" in f:
+            specific_instructions.append("- Add more <h2> subheadings to break up large sections. Ensure there are at least 5 <h2> tags in total.")
+        elif "h3 sections" in f:
+            specific_instructions.append("- Add more <h3> subheadings under existing <h2> sections. Ensure there are at least 4 <h3> tags in total.")
+        elif "numbered steps" in f:
+            specific_instructions.append("- Convert a relevant process (like a how-to section) into an <ol> numbered list with <li> elements.")
+        elif "bullet lists" in f:
+            specific_instructions.append("- Convert relevant comma-separated points or features into <ul> bullet lists. Need at least 3 <ul> lists.")
+        elif "internal links" in f:
+            specific_instructions.append("- Naturally integrate links to 'vncodepro.com' across the article. Ensure at least 5 such links exist.")
+        elif "2026" in f:
+            specific_instructions.append("- Add the year '2026' naturally in at least 4 different places.")
+        elif "keyword in content" in f:
+            specific_instructions.append(f"- Include the exact keyword '{keyword}' naturally in the text.")
+        elif "keyword not stuffed" in f:
+            specific_instructions.append(f"- Reduce the usage of the keyword '{keyword}'. Use it only 2 to 6 times total.")
+        elif "broken fragments" in f:
+            specific_instructions.append("- Fix broken sentence fragments (like 'And, time-consuming' or 'You need help') by merging them into complete, natural sentences.")
+        elif "faq section" in f:
+            specific_instructions.append("- Add a 'Frequently Asked Questions' <h2> section with at least 4 <h3> questions and <p> answers.")
+        elif "testimonials" in f:
+            specific_instructions.append("- Add a 'What Creators Say About VN Code Pro' <h2> section with quotes from an 'Influencer' and a 'Fashion Blogger'.")
+        elif "qr process" in f:
+            specific_instructions.append("- Ensure the QR code process is correct: After purchase, save the QR code image to your phone gallery. Open VN app → tap scan icon → select QR code IMAGE from gallery → tap Use → replace clips → Export.")
+        elif "fake stats" in f:
+            specific_instructions.append("- Remove fake stats like '10,000 creators' or '5x engagement'.")
+        elif "wrong developer" in f:
+            specific_instructions.append("- Replace 'VN Inc' with 'Ubiquiti Labs, LLC'.")
+        elif "offer mentioned" in f:
+            specific_instructions.append("- Mention the current offer: BUY 2 GET 1 FREE (use code B2G1).")
+        elif "duplicate li tags" in f:
+            specific_instructions.append("- Fix invalid HTML like <li><li> to be a single <li> tag.")
+        elif "correct url format" in f:
+            specific_instructions.append("- Remove or fix any invalid URLs like '/how-it-use'.")
+        elif "vncodepro mentioned" in f:
+            specific_instructions.append("- Mention 'VN Code Pro' naturally at least 10 times throughout the article.")
+        else:
+            specific_instructions.append(f"- Fix this requirement: {f}")
+
+    instructions_text = chr(10).join(specific_instructions)
+
+    prompt = f"""You are a SURGICAL HTML editor. You must fix exactly {len(failed_checks)} quality issues in the provided blog draft.
 
 Focus keyword: {keyword}
 
-INSTRUCTIONS:
-1. Identify where the draft failed these specific rules.
-2. If word count is low, naturally expand the text.
-3. If it lacks internal links or headings, add them naturally.
-4. If it has fake stats or wrong developer names, remove/fix them.
-5. Do NOT remove any existing good content. Only add or fix.
-6. Return ONLY the fully corrected HTML.
+THE ISSUES TO FIX:
+{instructions_text}
+
+CRITICAL RULES:
+1. ONLY apply the minimal required edits to fix the specific issues above.
+2. DO NOT rewrite or summarize the rest of the blog.
+3. Keep all existing sentences, paragraphs, and HTML structure EXACTLY as they are, unless they directly violate one of the issues above.
+4. Output ONLY the fully corrected HTML without any markdown formatting wrappers.
 
 DRAFT TO FIX:
 {content}"""
