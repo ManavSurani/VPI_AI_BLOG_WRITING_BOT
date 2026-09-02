@@ -842,7 +842,49 @@ def save_draft(topic, content, meta):
     return ""
 
 
-# ─── STEP 8: Push to Website API ─────────────────────────────────
+# ─── STEP 8A: Save Blog as .txt File ─────────────────────────────
+def save_to_txt(topic, content, meta, word_count):
+    try:
+        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
+        os.makedirs(output_dir, exist_ok=True)
+
+        slug      = meta.get("slug", "blog").replace("/", "-")[:60]
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename  = f"{slug}-{timestamp}.txt"
+        filepath  = os.path.join(output_dir, filename)
+
+        tags = meta.get("tags", [])
+        tags_str = ", ".join(tags) if isinstance(tags, list) else str(tags)
+
+        header = (
+            "=" * 55 + "\n"
+            "  VN CODE PRO BLOG BOT — Generated Blog\n"
+            "=" * 55 + "\n"
+            f"  Title:        {topic.get('title', '')}\n"
+            f"  Keyword:      {topic.get('keyword', '')}\n"
+            f"  Slug:         {meta.get('slug', '')}\n"
+            f"  Word Count:   {word_count}\n"
+            f"  Excerpt:      {meta.get('excerpt', '')}\n"
+            f"  Meta Title:   {meta.get('meta_title', '')}\n"
+            f"  Meta Desc:    {meta.get('meta_description', '')}\n"
+            f"  Tags:         {tags_str}\n"
+            f"  Generated:    {datetime.now().strftime('%Y-%m-%d %I:%M %p IST')}\n"
+            "=" * 55 + "\n\n"
+            "[FULL HTML CONTENT BELOW]\n\n"
+        )
+
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.write(header + content)
+
+        print(f"  [SAVED] Blog saved to: output/{filename}")
+        return filepath
+
+    except Exception as e:
+        print(f"  [WARNING] Could not save .txt file: {e}")
+        return None
+
+
+# ─── STEP 8B: Push to Website API ─────────────────────────────────
 def push_to_api(topic, content, meta, word_count, verified_facts, supabase_id=None):
     try:
         BASE_URL = "http://192.168.1.15:8000"
@@ -1053,7 +1095,8 @@ def run():
             print(f"  Words:    {word_count}")
             if post_id:
                 print(f"  DB ID:    {post_id}")
-            push_to_api(topic, content, meta, word_count, verified_facts, supabase_id=post_id)
+            save_to_txt(topic, content, meta, word_count)
+            # push_to_api(topic, content, meta, word_count, verified_facts, supabase_id=post_id)
 
         print(f"\n  API Usage:")
         print(f"    Gemini calls:    {API_USAGE['gemini_calls']} ({API_USAGE['gemini_tokens']} tokens)")

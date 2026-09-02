@@ -1,4 +1,5 @@
 from fastapi import FastAPI, BackgroundTasks, Header, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import subprocess
 from pydantic import BaseModel
 from typing import List
@@ -10,6 +11,14 @@ load_dotenv()
 API_KEY = "vncodepro-bot-secret-key-2026"
 app = FastAPI(title="VN Code Pro Blog Bot API")
 supabase = create_client(os.environ["SUPABASE_URL"], os.environ["SUPABASE_KEY"])
+
+# Allow frontend (GitHub Pages or local) to call this API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 class Blog(BaseModel):
     topic: str
