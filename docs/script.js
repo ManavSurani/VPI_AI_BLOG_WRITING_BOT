@@ -1,7 +1,10 @@
-﻿// ── CONFIG ──────────────────────────────────────────────────────
+// ── CONFIG ──────────────────────────────────────────────────────
 // Replace with your public API URL (ngrok / Railway / VPS)
 const API_BASE = "http://localhost:8000";
-const API_KEY  = "";   // leave blank — user enters it in the form
+
+// This key just lets the button trigger the bot — it is NOT your Gemini/Groq/Tavily key.
+// Those real API keys stay in .env on your server and are NEVER sent to the browser.
+const BOT_TRIGGER_KEY = "vncodepro-bot-secret-key-2026";
 
 // ── ON PAGE LOAD ─────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
@@ -95,17 +98,9 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 
 // ── TRIGGER BOT ──────────────────────────────────────────────────
 async function triggerBot() {
-  const keyInput = document.getElementById("api-key-input");
-  const btn      = document.getElementById("trigger-btn");
-  const panel    = document.getElementById("log-panel");
-  const logBody  = document.getElementById("log-body");
-  const userKey  = keyInput.value.trim();
-
-  if (!userKey) {
-    keyInput.style.borderColor = "#f85149";
-    setTimeout(() => { keyInput.style.borderColor = ""; }, 1500);
-    return;
-  }
+  const btn     = document.getElementById("trigger-btn");
+  const panel   = document.getElementById("log-panel");
+  const logBody = document.getElementById("log-body");
 
   btn.disabled = true;
   btn.textContent = "⏳ Starting...";
@@ -117,14 +112,14 @@ async function triggerBot() {
   try {
     const res = await fetch(`${API_BASE}/generate-blog`, {
       method: "POST",
-      headers: { "x-api-key": userKey },
+      headers: { "x-api-key": BOT_TRIGGER_KEY },
       signal: AbortSignal.timeout(10000)
     });
 
     const data = await res.json();
 
     if (res.status === 401) {
-      addLog("❌ Invalid API Key — request rejected.", "error");
+      addLog("❌ Bot API authentication failed — check server config.", "error");
       btn.disabled = false;
       btn.textContent = "▶ Generate Now";
       return;
