@@ -20,3 +20,45 @@ Error:    Unexpected crash:
 Location: Quality Check
 Error:    Blog failed to achieve 100% after 3 auto-fix attempts. Draft discarded.
 --------------------------------------------------
+[2026-09-02 05:03:24 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: 
+  All GROQ_API_KEY keys are invalid or exhausted.
+  Add new keys to .env:
+  GROQ_API_KEY_1=new_key_here
+--------------------------------------------------
+[2026-09-02 05:07:20 PM]
+Location: Groq API
+Error:    Failed after 3 attempts. Last error: Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+--------------------------------------------------
+[2026-09-02 05:07:20 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}
+--------------------------------------------------
+[2026-09-02 05:08:59 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: [Errno 11001] getaddrinfo failed
+--------------------------------------------------
+[2026-09-02 05:09:16 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: [Errno 11001] getaddrinfo failed
+--------------------------------------------------
+[2026-09-02 05:10:11 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: [Errno 11001] getaddrinfo failed
+--------------------------------------------------
+[2026-09-02 05:16:02 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: 
+  All GEMINI_API_KEY keys are invalid or exhausted.
+  Add new keys to .env:
+  GEMINI_API_KEY_1=new_key_here
+--------------------------------------------------
+[2026-09-02 05:23:31 PM]
+Location: Main Run Loop
+Error:    Unexpected crash: [Errno 11001] getaddrinfo failed
+--------------------------------------------------
+[2026-09-02 05:28:11 PM]
+Location: save_draft
+Error:    Supabase insert failed: [Errno 11001] getaddrinfo failed
+--------------------------------------------------

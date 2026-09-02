@@ -223,14 +223,14 @@ def groq_call(prompt, json_mode=False, max_retries=3):
         try:
             if json_mode:
                 r = groq_client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="qwen/qwen3.8-27b",
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=2000,
                     response_format={"type": "json_object"}
                 )
             else:
                 r = groq_client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="qwen/qwen3.8-27b",
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=2000
                 )
@@ -254,12 +254,18 @@ def groq_call(prompt, json_mode=False, max_retries=3):
                 groq_client = Groq(api_key=new_key)
                 continue
 
+            # Network / DNS error — wait and retry same key
+            elif any(x in err.lower() for x in ["getaddrinfo", "connection", "network", "timeout", "errno"]):
+                print(f"  [!] Groq network error (attempt {attempt+1}) — retrying in 5s...")
+                time.sleep(5)
+                continue
+
             # Other error — fallback to smaller model
             else:
                 print(f"  [!] Groq error (attempt {attempt+1}): {err[:80]}")
                 try:
                     r = groq_client.chat.completions.create(
-                        model="llama-3.1-8b-instant",
+                        model="openai/gpt-oss-20b",
                         messages=[{"role": "user", "content": prompt}],
                         max_tokens=1500
                     )
@@ -353,11 +359,14 @@ Extract real trending signals. Return ONLY valid JSON:
 def decide_topic(trends, site_knowledge, verified_facts):
     print("Step 2: Deciding unique blog topic...")
 
-    existing = supabase.table("blog_posts").select("title").execute()
     published_titles = []
-    if existing.data:
-        published_titles = [p["title"] for p in existing.data if isinstance(p, dict)]
-    API_USAGE["supabase_posts"] = len(published_titles)
+    try:
+        existing = supabase.table("blog_posts").select("title").execute()
+        if existing.data:
+            published_titles = [p["title"] for p in existing.data if isinstance(p, dict)]
+        API_USAGE["supabase_posts"] = len(published_titles)
+    except Exception as e:
+        print(f"  [!] Could not fetch existing titles (network blip) — continuing without duplicate check: {str(e)[:60]}")
 
     if "pages" in site_knowledge and "blogs" in site_knowledge["pages"]:
         published_titles += site_knowledge["pages"]["blogs"].get("published_titles", [])
@@ -834,11 +843,23 @@ def save_draft(topic, content, meta):
         "status":           "draft",
         "pushed_to_api":    False
     }
-    result = supabase.table("blog_posts").insert(post).execute()
-    if result and result.data:
-        first = result.data[0]
-        if isinstance(first, dict) and "id" in first:
-            return first["id"]
+    for attempt in range(3):
+        try:
+            result = supabase.table("blog_posts").insert(post).execute()
+            if result and result.data:
+                first = result.data[0]
+                if isinstance(first, dict) and "id" in first:
+                    return first["id"]
+            return ""
+        except Exception as e:
+            err = str(e)
+            if attempt < 2:
+                print(f"  [!] Supabase save failed (attempt {attempt+1}) — retrying in 5s: {err[:60]}")
+                time.sleep(5)
+            else:
+                print(f"  [!] Supabase save failed after 3 attempts: {err[:80]}")
+                log_error("save_draft", f"Supabase insert failed: {err}")
+                return ""
     return ""
 
 
